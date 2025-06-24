@@ -9,12 +9,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Calm Trust (Amber, Teal, Orange) -->
-    <!-- Application Structure Plan: The SPA is designed as a top-down strategic guide for a potential seller. It starts with a high-level "Why?" (Market Opportunity), moves to "Who?" (The Customer), then "What are the roadblocks?" (Challenges), "Who are we competing against?" (Competitive Landscape), and finally "How do we win?" (Strategies). This logical flow guides the user from understanding the potential to actionable planning, which is more intuitive for a business user than the report's original linear structure. Navigation is handled by a sticky header for easy access to each critical section. -->
-    <!-- Visualization & Content Choices: 
-        - Market Growth: Report data on market size projection (2023-2032) -> Goal: Visualize the scale of the opportunity -> Viz: Line Chart (Chart.js) -> Interaction: Hover tooltips for annual value -> Justification: A line chart is the clearest way to show a powerful growth trend over time.
+    <!-- Chosen Palette: Ocean Sunset (Light Orange, Deep Purple, Aqua) -->
+    <!-- Application Structure Plan: The SPA is designed as a top-down strategic guide for a potential seller. It starts with a high-level "Why?" (Market Opportunity), moves to "Who?" (The Customer), then "What are the roadblocks?" (Challenges), "Who are we competing against?" (Competitive Landscape), and finally "How do we win?" (Strategies). A new 'Go-to-Market Strategy' section has been added to detail partnership and value creation models. This logical flow guides the user from understanding the potential to actionable planning, which is more intuitive for a business user than the report's original linear structure. Navigation is handled by a sticky header for easy access to each critical section. -->
+    <!-- Visualization & Content Choices:
+        - Market Growth: Report data on market size projection (2023-2032) -> Goal: Visualize the scale of the opportunity with dual currency values -> Viz: Line Chart (Chart.js) -> Interaction: Hover tooltips for annual USD and INR value -> Justification: A line chart is the clearest way to show a powerful growth trend over time, and dual currency provides local context.
         - Provider Comparison: Report's table of insurers -> Goal: Compare competitors -> Viz: Styled HTML Table -> Interaction: Responsive horizontal scroll on mobile -> Justification: A table is the most effective format for direct comparison of features. A complex chart would obscure details.
-        - Customer Demographics, Challenges, Strategies: Report's qualitative lists -> Goal: Organize and inform -> Viz: Icon-driven cards in a grid layout -> Interaction: Subtle hover effects -> Justification: Cards break down complex info into digestible, visually appealing chunks, improving readability over paragraphs.
+        - Customer Demographics, Challenges, Strategies, GTM: Report's qualitative lists and new strategic content -> Goal: Organize and inform -> Viz: Icon-driven cards in a grid layout -> Interaction: Subtle hover effects and consistent accent borders -> Justification: Cards break down complex info into digestible, visually appealing chunks, improving readability over paragraphs and clearly delineating strategic components, with enhanced interactivity cues.
     -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
@@ -34,29 +34,48 @@
                 height: 300px;
             }
         }
+        /* Custom styling for subtle underline hover on navigation links */
+        .nav-link-hover-underline {
+            position: relative;
+        }
+        .nav-link-hover-underline::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0;
+            height: 2px;
+            background-color: currentColor; /* Matches text color */
+            transition: width 0.3s ease-in-out;
+        }
+        .nav-link-hover-underline:hover::after {
+            width: 100%;
+        }
     </style>
 </head>
-<body class="bg-amber-50 text-teal-900">
+<body class="bg-orange-50 text-purple-900">
 
-    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
-        <nav class="container mx-auto px-6 py-3">
+    <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-50 shadow-md">
+        <nav class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
-                <div class="text-xl font-bold text-teal-800">Pet Insurance India</div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#opportunity" class="hover:text-orange-600 transition-colors">Opportunity</a>
-                    <a href="#customer" class="hover:text-orange-600 transition-colors">The Customer</a>
-                    <a href="#challenges" class="hover:text-orange-600 transition-colors">Challenges</a>
-                    <a href="#competitors" class="hover:text-orange-600 transition-colors">Competitors</a>
-                    <a href="#strategies" class="hover:text-orange-600 transition-colors">Strategies</a>
+                <div class="text-2xl font-bold text-purple-800">Pet Insurance India</div>
+                <div class="hidden md:flex space-x-10">
+                    <a href="#opportunity" class="text-purple-700 hover:text-cyan-600 transition-colors nav-link-hover-underline">Opportunity</a>
+                    <a href="#customer" class="text-purple-700 hover:text-cyan-600 transition-colors nav-link-hover-underline">The Customer</a>
+                    <a href="#challenges" class="text-purple-700 hover:text-cyan-600 transition-colors nav-link-hover-underline">Challenges</a>
+                    <a href="#competitors" class="text-purple-700 hover:text-cyan-600 transition-colors nav-link-hover-underline">Competitors</a>
+                    <a href="#strategies" class="text-purple-700 hover:text-cyan-600 transition-colors nav-link-hover-underline">Strategies</a>
+                    <a href="#gtm-strategy" class="text-purple-700 hover:text-cyan-600 transition-colors nav-link-hover-underline">GTM</a>
                 </div>
                 <div class="md:hidden">
-                    <select id="mobile-nav" class="bg-white border border-gray-300 rounded-md py-2 px-3 text-teal-800">
+                    <select id="mobile-nav" class="bg-white border border-purple-300 rounded-lg py-2 px-3 text-purple-800 shadow-sm focus:ring-2 focus:ring-cyan-500">
                         <option value="#hero">Home</option>
                         <option value="#opportunity">Opportunity</option>
                         <option value="#customer">The Customer</option>
                         <option value="#challenges">Challenges</option>
                         <option value="#competitors">Competitors</option>
                         <option value="#strategies">Strategies</option>
+                        <option value="#gtm-strategy">GTM Strategy</option>
                     </select>
                 </div>
             </div>
@@ -64,211 +83,313 @@
     </header>
 
     <main>
-        <section id="hero" class="py-20 bg-white">
+        <section id="hero" class="py-24 bg-gradient-to-br from-white to-orange-100">
             <div class="container mx-auto px-6 text-center">
-                <h1 class="text-4xl md:text-6xl font-bold leading-tight text-teal-900">Tapping into India's Pet Insurance Boom</h1>
-                <p class="mt-4 text-lg md:text-xl text-teal-700 max-w-3xl mx-auto">A strategic guide to navigating the rapidly growing market for pet insurance in India, where pets are increasingly part of the family.</p>
-                <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="bg-amber-50 p-6 rounded-lg shadow-md">
-                        <p class="text-4xl font-bold text-orange-600">19.2%</p>
-                        <p class="mt-2 text-teal-800">Projected CAGR</p>
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight text-purple-900 drop-shadow-sm">Tapping into India's Pet Insurance Boom</h1>
+                <p class="mt-6 text-lg md:text-xl text-purple-700 max-w-4xl mx-auto leading-relaxed">A strategic guide to navigating the rapidly growing market for pet insurance in India, where pets are increasingly part of the family, offering significant opportunities for growth and innovation.</p>
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-10">
+                    <div class="bg-white p-8 rounded-xl shadow-xl border-b-4 border-cyan-500 transform hover:scale-105 transition-all duration-300">
+                        <p class="text-5xl font-bold text-cyan-600">19.2%</p>
+                        <p class="mt-3 text-purple-800 text-lg font-semibold">Projected CAGR</p>
                     </div>
-                    <div class="bg-amber-50 p-6 rounded-lg shadow-md">
-                        <p class="text-4xl font-bold text-orange-600">$9.95B</p>
-                        <p class="mt-2 text-teal-800">Market Value (FY 2023)</p>
+                    <div class="bg-white p-8 rounded-xl shadow-xl border-b-4 border-cyan-500 transform hover:scale-105 transition-all duration-300">
+                        <p class="text-5xl font-bold text-cyan-600">$9.95B <span class="text-2xl font-normal text-purple-600 block">(~₹83,083 Cr)</span></p>
+                        <p class="mt-3 text-purple-800 text-lg font-semibold">Market Value (FY 2023)</p>
                     </div>
-                    <div class="bg-amber-50 p-6 rounded-lg shadow-md">
-                        <p class="text-4xl font-bold text-orange-600">$25.1B</p>
-                        <p class="mt-2 text-teal-800">Projected Value (by 2032)</p>
+                    <div class="bg-white p-8 rounded-xl shadow-xl border-b-4 border-cyan-500 transform hover:scale-105 transition-all duration-300">
+                        <p class="text-5xl font-bold text-cyan-600">$25.1B <span class="text-2xl font-normal text-purple-600 block">(~₹2,09,585 Cr)</span></p>
+                        <p class="mt-3 text-purple-800 text-lg font-semibold">Projected Value (by 2032)</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="opportunity" class="py-16">
+        <section id="opportunity" class="py-20">
             <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center text-teal-900">📈 The Market Opportunity</h2>
-                <p class="mt-4 text-center max-w-3xl mx-auto text-teal-800">The Indian pet care market is not just growing; it's transforming. A cultural shift towards pet humanization, coupled with rising disposable incomes, is creating a fertile ground for services like pet insurance. This section visualizes the explosive growth ahead and outlines the core drivers powering this change, helping you understand the scale of the opportunity.</p>
-                <div class="mt-12">
-                    <div class="chart-container bg-white p-4 rounded-lg shadow-lg">
+                <h2 class="text-4xl font-bold text-center text-purple-900 mb-6">📈 The Market Opportunity</h2>
+                <p class="mt-4 text-center max-w-4xl mx-auto text-purple-800 leading-relaxed">The Indian pet care market is not just growing; it's transforming. A cultural shift towards pet humanization, coupled with rising disposable incomes, is creating a fertile ground for services like pet insurance. This section visualizes the explosive growth ahead and outlines the core drivers powering this change, helping you understand the scale of the opportunity.</p>
+                <div class="mt-16">
+                    <div class="chart-container bg-white p-6 rounded-xl shadow-2xl border border-purple-200">
                         <canvas id="marketGrowthChart"></canvas>
                     </div>
                 </div>
-                 <div class="mt-12">
-                    <h3 class="text-2xl font-bold text-center text-teal-900 mb-8">Key Growth Drivers</h3>
-                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        <div class="bg-white p-6 rounded-lg shadow-md text-center">
-                            <div class="text-4xl mb-4">🏠</div>
-                            <h4 class="font-semibold text-lg">Pet Humanization</h4>
-                            <p class="text-sm text-teal-700 mt-2">Pets are increasingly seen as family members, prompting owners to invest more in their health and well-being.</p>
+                 <div class="mt-20">
+                    <h3 class="text-3xl font-bold text-center text-purple-900 mb-10">Key Growth Drivers</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+                        <div class="bg-white p-8 rounded-xl shadow-lg border-b-4 border-cyan-400 text-center transform hover:scale-105 transition-all duration-300">
+                            <div class="text-5xl mb-4 text-orange-500">🏠</div>
+                            <h4 class="font-bold text-xl text-purple-800">Pet Humanization</h4>
+                            <p class="text-base text-purple-700 mt-2 leading-relaxed">Pets are increasingly seen as beloved family members, prompting owners to invest more significantly in their health and overall well-being.</p>
                         </div>
-                        <div class="bg-white p-6 rounded-lg shadow-md text-center">
-                           <div class="text-4xl mb-4">💰</div>
-                            <h4 class="font-semibold text-lg">Rising Incomes</h4>
-                            <p class="text-sm text-teal-700 mt-2">Increased disposable income allows more households to afford pets and the associated costs of quality care.</p>
+                        <div class="bg-white p-8 rounded-xl shadow-lg border-b-4 border-cyan-400 text-center transform hover:scale-105 transition-all duration-300">
+                           <div class="text-5xl mb-4 text-orange-500">💰</div>
+                            <h4 class="font-bold text-xl text-purple-800">Rising Incomes</h4>
+                            <p class="text-base text-purple-700 mt-2 leading-relaxed">Increased disposable income enables more households to comfortably afford pets and the associated costs of premium quality care.</p>
                         </div>
-                        <div class="bg-white p-6 rounded-lg shadow-md text-center">
-                            <div class="text-4xl mb-4">🏥</div>
-                            <h4 class="font-semibold text-lg">Awareness of Vet Costs</h4>
-                            <p class="text-sm text-teal-700 mt-2">As veterinary medicine advances, costs rise, making insurance an attractive option for financial protection.</p>
+                        <div class="bg-white p-8 rounded-xl shadow-lg border-b-4 border-cyan-400 text-center transform hover:scale-105 transition-all duration-300">
+                            <div class="text-5xl mb-4 text-orange-500">🏥</div>
+                            <h4 class="font-bold text-xl text-purple-800">Awareness of Vet Costs</h4>
+                            <p class="text-base text-purple-700 mt-2 leading-relaxed">As veterinary medicine advances and treatment costs rise, pet insurance becomes an increasingly attractive option for financial protection.</p>
                         </div>
-                        <div class="bg-white p-6 rounded-lg shadow-md text-center">
-                            <div class="text-4xl mb-4">🏙️</div>
-                            <h4 class="font-semibold text-lg">Urbanization</h4>
-                            <p class="text-sm text-teal-700 mt-2">Urban residents, particularly in nuclear families, are leading the trend in pet adoption across India.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="customer" class="py-16 bg-white">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center text-teal-900">🎯 Understanding Your Target Customer</h2>
-                <p class="mt-4 text-center max-w-3xl mx-auto text-teal-800">Success in this market hinges on understanding the new generation of Indian pet owners. This section profiles the ideal customer for pet insurance. These are not just people who own pets; they are deeply invested "pet parents" who are proactive about health and financially prepared to ensure their companion's well-being.</p>
-                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div class="border-t-4 border-orange-400 bg-amber-50 p-6 rounded-lg shadow-md">
-                        <h3 class="text-lg font-semibold text-teal-800">Financially Aware</h3>
-                        <p class="mt-2 text-teal-700">They understand that advanced vet care can be expensive and seek ways to manage potential financial stress.</p>
-                    </div>
-                    <div class="border-t-4 border-orange-400 bg-amber-50 p-6 rounded-lg shadow-md">
-                        <h3 class="text-lg font-semibold text-teal-800">Emotionally Bonded</h3>
-                        <p class="mt-2 text-teal-700">They view their pet as a family member and prioritize their health and happiness above all else.</p>
-                    </div>
-                    <div class="border-t-4 border-orange-400 bg-amber-50 p-6 rounded-lg shadow-md">
-                        <h3 class="text-lg font-semibold text-teal-800">Proactive & Informed</h3>
-                        <p class="mt-2 text-teal-700">They are engaged in their pet's healthcare, from regular check-ups to vaccinations, and appreciate the value of prevention.</p>
-                    </div>
-                    <div class="border-t-4 border-orange-400 bg-amber-50 p-6 rounded-lg shadow-md">
-                        <h3 class="text-lg font-semibold text-teal-800">Urban Millennials & Gen Z</h3>
-                        <p class="mt-2 text-teal-700">Often living in nuclear families in cities, these younger demographics are driving the pet parenting trend.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="challenges" class="py-16">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center text-teal-900">🚧 Navigating the Adoption Hurdles</h2>
-                <p class="mt-4 text-center max-w-3xl mx-auto text-teal-800">Despite the high potential, pet insurance adoption in India is still low. To succeed, you must understand and address the key barriers. This section outlines the primary challenges, from a simple lack of awareness to deep-seated cultural mindsets, framing them as opportunities for education and trust-building.</p>
-                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-white p-6 rounded-lg shadow-md flex items-start">
-                        <div class="text-3xl mr-4">❓</div>
-                        <div>
-                            <h3 class="text-lg font-semibold">Lack of Awareness</h3>
-                            <p class="mt-2 text-teal-700">The most significant barrier. Many pet owners simply do not know that pet insurance exists as an option.</p>
-                        </div>
-                    </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md flex items-start">
-                        <div class="text-3xl mr-4">💸</div>
-                        <div>
-                            <h3 class="text-lg font-semibold">Cost & Affordability Perception</h3>
-                            <p class="mt-2 text-teal-700">Premiums can be perceived as an unnecessary expense, especially without a clear understanding of the potential savings on high vet bills.</p>
-                        </div>
-                    </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md flex items-start">
-                        <div class="text-3xl mr-4">🧩</div>
-                        <div>
-                            <h3 class="text-lg font-semibold">Complex Policies</h3>
-                            <p class="mt-2 text-teal-700">Complicated terms, conditions, and exclusions can intimidate potential buyers and make the value proposition unclear.</p>
-                        </div>
-                    </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md flex items-start">
-                        <div class="text-3xl mr-4">🤝</div>
-                        <div>
-                            <h3 class="text-lg font-semibold">Trust & Cultural Mindset</h3>
-                            <p class="mt-2 text-teal-700">A traditional reliance on savings for emergencies and a general lack of trust in insurance claim processes can deter customers.</p>
+                        <div class="bg-white p-8 rounded-xl shadow-lg border-b-4 border-cyan-400 text-center transform hover:scale-105 transition-all duration-300">
+                            <div class="text-5xl mb-4 text-orange-500">🏙️</div>
+                            <h4 class="font-bold text-xl text-purple-800">Urbanization</h4>
+                            <p class="text-base text-purple-700 mt-2 leading-relaxed">Urban residents, particularly those in nuclear family structures, are at the forefront of the surging trend in pet adoption across India.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="competitors" class="py-16 bg-white">
+        <section id="customer" class="py-20 bg-gradient-to-br from-orange-100 to-white">
             <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center text-teal-900">🔍 The Competitive Landscape</h2>
-                <p class="mt-4 text-center max-w-3xl mx-auto text-teal-800">Several established insurance providers have already entered the pet insurance space in India. Understanding their offerings is key to carving out your niche. This table provides a comparative snapshot of major players, their target pets, and key coverage areas. Use this to identify gaps in the market and opportunities for differentiation.</p>
-                <div class="mt-12 w-full overflow-x-auto">
-                    <table class="min-w-full bg-white border border-teal-200">
-                        <thead class="bg-teal-700 text-white">
+                <h2 class="text-4xl font-bold text-center text-purple-900 mb-6">🎯 Understanding Your Target Customer</h2>
+                <p class="mt-4 text-center max-w-4xl mx-auto text-purple-800 leading-relaxed">Success in this market hinges on understanding the new generation of Indian pet owners. This section profiles the ideal customer for pet insurance. These are not just people who own pets; they are deeply invested "pet parents" who are proactive about health and financially prepared to ensure their companion's well-being.</p>
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+                    <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-cyan-500 transform hover:scale-105 transition-all duration-300">
+                        <h3 class="text-xl font-bold text-purple-800">Financially Aware</h3>
+                        <p class="mt-3 text-purple-700 leading-relaxed">They understand that advanced veterinary care can be highly expensive and actively seek solutions to manage potential financial stress.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-cyan-500 transform hover:scale-105 transition-all duration-300">
+                        <h3 class="text-xl font-bold text-purple-800">Emotionally Bonded</h3>
+                        <p class="mt-3 text-purple-700 leading-relaxed">They view their pet as an irreplaceable family member, prioritizing their health, happiness, and overall well-being above all else.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-cyan-500 transform hover:scale-105 transition-all duration-300">
+                        <h3 class="text-xl font-bold text-purple-800">Proactive & Informed</h3>
+                        <p class="mt-3 text-purple-700 leading-relaxed">They are actively engaged in their pet's healthcare, ensuring regular check-ups and vaccinations, and value preventative measures.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-cyan-500 transform hover:scale-105 transition-all duration-300">
+                        <h3 class="text-xl font-bold text-purple-800">Urban Millennials & Gen Z</h3>
+                        <p class="mt-3 text-purple-700 leading-relaxed">Often residing in nuclear families within cities, these younger demographics are spearheading the modern "pet parenting" trend.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="challenges" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center text-purple-900 mb-6">🚧 Navigating the Adoption Hurdles</h2>
+                <p class="mt-4 text-center max-w-4xl mx-auto text-purple-800 leading-relaxed">Despite the high potential, pet insurance adoption in India is still relatively low. To succeed, you must understand and effectively address these key barriers. This section outlines the primary challenges, from a simple lack of awareness to deep-seated cultural mindsets, framing them as opportunities for education and trust-building.</p>
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-cyan-400 flex items-start transform hover:scale-105 transition-all duration-300">
+                        <div class="text-4xl mr-5 text-orange-500">❓</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-purple-800">Lack of Awareness</h3>
+                            <p class="mt-2 text-purple-700 leading-relaxed">This is the most significant barrier. Many Indian pet owners are simply unaware that pet insurance exists as a viable financial option.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-cyan-400 flex items-start transform hover:scale-105 transition-all duration-300">
+                        <div class="text-4xl mr-5 text-orange-500">💸</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-purple-800">Cost & Affordability Perception</h3>
+                            <p class="mt-2 text-purple-700 leading-relaxed">Premiums can be perceived as an additional, unnecessary financial burden, especially without a clear understanding of potential savings on high vet bills.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-cyan-400 flex items-start transform hover:scale-105 transition-all duration-300">
+                        <div class="text-4xl mr-5 text-orange-500">🧩</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-purple-800">Complex Policies</h3>
+                            <p class="mt-2 text-purple-700 leading-relaxed">Complicated terms, extensive conditions, and often unclear exclusions can intimidate potential buyers, obscuring the clear value proposition.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg border-l-4 border-cyan-400 flex items-start transform hover:scale-105 transition-all duration-300">
+                        <div class="text-4xl mr-5 text-orange-500">🤝</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-purple-800">Trust & Cultural Mindset</h3>
+                            <p class="mt-2 text-purple-700 leading-relaxed">A traditional reliance on personal savings for emergencies, coupled with a general lack of trust in insurance claim processes, can deter customers.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="competitors" class="py-20 bg-gradient-to-br from-orange-100 to-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center text-purple-900 mb-6">🔍 The Competitive Landscape</h2>
+                <p class="mt-4 text-center max-w-4xl mx-auto text-purple-800 leading-relaxed">Several established insurance providers have already entered the pet insurance space in India. Understanding their offerings is key to carving out your niche. This comprehensive table provides a comparative snapshot of major players, their target pets, and key coverage areas. Use this to identify gaps in the market and opportunities for differentiation.</p>
+                <div class="mt-16 w-full overflow-x-auto rounded-xl shadow-2xl border border-purple-200">
+                    <table class="min-w-full bg-white">
+                        <thead class="bg-purple-700 text-white">
                             <tr>
-                                <th class="py-3 px-4 text-left">Provider</th>
-                                <th class="py-3 px-4 text-left">Target Pet</th>
-                                <th class="py-3 px-4 text-left">Key Coverage</th>
-                                <th class="py-3 px-4 text-left">Entry Age</th>
-                                <th class="py-3 px-4 text-left">Common Exclusions</th>
+                                <th class="py-4 px-6 text-left text-lg font-semibold">Provider</th>
+                                <th class="py-4 px-6 text-left text-lg font-semibold">Target Pet</th>
+                                <th class="py-4 px-6 text-left text-lg font-semibold">Key Coverage</th>
+                                <th class="py-4 px-6 text-left text-lg font-semibold">Entry Age</th>
+                                <th class="py-4 px-6 text-left text-lg font-semibold">Common Exclusions</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-teal-100">
+                        <tbody class="divide-y divide-purple-100">
                         </tbody>
                     </table>
                 </div>
             </div>
         </section>
 
-        <section id="strategies" class="py-16">
+        <section id="strategies" class="py-20">
             <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center text-teal-900">💡 Strategies for Success</h2>
-                <p class="mt-4 text-center max-w-3xl mx-auto text-teal-800">To win in this emerging market, a multi-faceted approach is essential. Your strategy must focus on education, trust-building, and creating value. This section presents five core strategies, from leveraging digital platforms to forging strategic partnerships, that will help you overcome the challenges and effectively reach your target audience.</p>
-                 <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                        <div class="text-4xl mb-4">📢</div>
-                        <h3 class="font-bold text-xl mb-2">Digital-First Awareness</h3>
-                        <p class="text-teal-700">Use social media, content marketing, and collaborations with pet influencers to educate the market about the existence and benefits of pet insurance.</p>
+                <h2 class="text-4xl font-bold text-center text-purple-900 mb-6">💡 Strategies for Success</h2>
+                <p class="mt-4 text-center max-w-4xl mx-auto text-purple-800 leading-relaxed">To win in this emerging market, a multi-faceted approach is essential. Your strategy must focus on education, trust-building, and creating undeniable value. This section presents six core strategies, from leveraging digital platforms to forging strategic partnerships, that will help you overcome the challenges and effectively reach your target audience.</p>
+                 <div class="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border-b-4 border-cyan-400 transform hover:scale-105">
+                        <div class="text-5xl mb-4 text-orange-500">📢</div>
+                        <h3 class="font-bold text-xl text-purple-800 mb-2">Digital-First Awareness</h3>
+                        <p class="text-purple-700 leading-relaxed">Utilize social media, engaging content marketing, and strategic collaborations with popular pet influencers to educate the market on pet insurance benefits.</p>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                        <div class="text-4xl mb-4">💎</div>
-                        <h3 class="font-bold text-xl mb-2">Emphasize Value & Flexibility</h3>
-                        <p class="text-teal-700">Clearly communicate the financial security offered. Provide customizable plans with varied premiums to address affordability concerns directly.</p>
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border-b-4 border-cyan-400 transform hover:scale-105">
+                        <div class="text-5xl mb-4 text-orange-500">💎</div>
+                        <h3 class="font-bold text-xl text-purple-800 mb-2">Emphasize Value & Flexibility</h3>
+                        <p class="text-purple-700 leading-relaxed">Clearly communicate the profound financial security offered. Provide customizable plans with varied premiums to address affordability concerns effectively.</p>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                        <div class="text-4xl mb-4">🔗</div>
-                        <h3 class="font-bold text-xl mb-2">Build Trust via Transparency</h3>
-                        <p class="text-teal-700">Simplify policy language. Be upfront about coverage and exclusions. Use customer testimonials to build credibility and confidence.</p>
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border-b-4 border-cyan-400 transform hover:scale-105">
+                        <div class="text-5xl mb-4 text-orange-500">🔗</div>
+                        <h3 class="font-bold text-xl text-purple-800 mb-2">Build Trust via Transparency</h3>
+                        <p class="text-purple-700 leading-relaxed">Simplify policy language, be entirely upfront about coverage and exclusions, and leverage authentic customer testimonials to build strong credibility.</p>
                     </div>
-                     <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                        <div class="text-4xl mb-4">🤝</div>
-                        <h3 class="font-bold text-xl mb-2">Leverage Partnerships</h3>
-                        <p class="text-teal-700">Collaborate with vets, pet stores, and groomers. These trusted sources can act as powerful point-of-sale channels and educate owners.</p>
+                     <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border-b-4 border-cyan-400 transform hover:scale-105">
+                        <div class="text-5xl mb-4 text-orange-500">🤝</div>
+                        <h3 class="font-bold text-xl text-purple-800 mb-2">Leverage Partnerships</h3>
+                        <p class="text-purple-700 leading-relaxed">Collaborate strategically with veterinarians, local pet stores, and professional groomers who serve as trusted sources and potential sales channels.</p>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                        <div class="text-4xl mb-4">🎨</div>
-                        <h3 class="font-bold text-xl mb-2">Personalize Your Offerings</h3>
-                        <p class="text-teal-700">Develop tailored products based on a pet's breed, age, and specific health needs to increase the perceived value and relevance of the insurance.</p>
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border-b-4 border-cyan-400 transform hover:scale-105">
+                        <div class="text-5xl mb-4 text-orange-500">🎨</div>
+                        <h3 class="font-bold text-xl text-purple-800 mb-2">Personalize Your Offerings</h3>
+                        <p class="text-purple-700 leading-relaxed">Develop highly tailored products based on a pet's specific breed, age, and health needs to significantly increase the perceived value and relevance.</p>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                        <div class="text-4xl mb-4">📜</div>
-                        <h3 class="font-bold text-xl mb-2">Ensure Compliance</h3>
-                        <p class="text-teal-700">Adhere to all IRDAI guidelines for non-life insurance to build a sustainable, ethical, and trustworthy business in the long run.</p>
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border-b-4 border-cyan-400 transform hover:scale-105">
+                        <div class="text-5xl mb-4 text-orange-500">📜</div>
+                        <h3 class="font-bold text-xl text-purple-800 mb-2">Ensure Compliance</h3>
+                        <p class="text-purple-700 leading-relaxed">Strictly adhere to all IRDAI guidelines for non-life insurance, establishing a sustainable, ethical, and trustworthy business foundation for long-term success.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="gtm-strategy" class="py-20 bg-gradient-to-br from-orange-100 to-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center text-purple-900 mb-6">🚀 Go-to-Market (GTM) Strategy: Partnerships & Value</h2>
+                <p class="mt-4 text-center max-w-4xl mx-auto text-purple-800 leading-relaxed">To accelerate market penetration and reach pet parents where they already are, strategic Go-to-Market partnerships are essential. This section demonstrates how integrating pet insurance offerings into existing pet-focused platforms can create a seamless experience and deliver substantial value for all involved stakeholders.</p>
+
+                <div class="mt-16">
+                    <h3 class="text-3xl font-bold text-center text-purple-900 mb-10">Platform Tie-ups: Where to Connect</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                        <div class="bg-white p-8 rounded-xl shadow-lg border-b-4 border-cyan-400 text-center transform hover:scale-105 transition-all duration-300">
+                            <div class="text-5xl mb-4 text-orange-500">🛒</div>
+                            <h4 class="font-bold text-xl text-purple-800">Online Pet Stores / E-commerce</h4>
+                            <p class="text-base text-purple-700 mt-2 leading-relaxed">Integrate insurance offerings directly at checkout or within product recommendations on platforms selling pet food, accessories, or medicines, leveraging existing purchase funnels.</p>
+                        </div>
+                        <div class="bg-white p-8 rounded-xl shadow-lg border-b-4 border-cyan-400 text-center transform hover:scale-105 transition-all duration-300">
+                            <div class="text-5xl mb-4 text-orange-500">⚕️</div>
+                            <h4 class="font-bold text-xl text-purple-800">Veterinary Chains / Clinics</h4>
+                            <p class="text-base text-purple-700 mt-2 leading-relaxed">Empower veterinarians to recommend and offer insurance plans directly to pet parents during consultations, effectively leveraging their trusted professional relationships.</p>
+                        </div>
+                        <div class="bg-white p-8 rounded-xl shadow-lg border-b-4 border-cyan-400 text-center transform hover:scale-105 transition-all duration-300">
+                            <div class="text-5xl mb-4 text-orange-500">🐾</div>
+                            <h4 class="font-bold text-xl text-purple-800">Pet Service Apps (Grooming, Boarding)</h4>
+                            <p class="text-base text-purple-700 mt-2 leading-relaxed">Introduce insurance as a convenient add-on service when pet parents are booking grooming appointments, boarding stays, or dog walking services through their preferred apps.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-20">
+                    <h3 class="text-3xl font-bold text-center text-purple-900 mb-10">Demonstration: Product Attachment for Pet Parents</h3>
+                    <div class="bg-purple-100 p-10 rounded-xl shadow-2xl border border-purple-300">
+                        <h4 class="font-bold text-2xl text-purple-900 mb-6 text-center">Scenario: Buying Pet Food Online - A Seamless Integration</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 text-purple-800">
+                            <div>
+                                <p class="font-bold text-xl mb-2 text-cyan-700">Step 1: Pet Parent browses an online pet food store.</p>
+                                <p class="text-lg leading-relaxed">They add their usual brand of premium dog food, along with some new treats and toys, to their virtual shopping cart.</p>
+                            </div>
+                            <div>
+                                <p class="font-bold text-xl mb-2 text-cyan-700">Step 2: Personalized Recommendation at Checkout.</p>
+                                <p class="text-lg leading-relaxed">Based on their pet's profile (e.g., dog breed, age inferred from previous orders), the platform intelligently displays a targeted pet insurance offer:</p>
+                                <ul class="list-disc list-inside mt-4 text-lg space-y-2">
+                                    <li>"Protect your furry friend's health for as little as ₹599/month!"</li>
+                                    <li>"Add comprehensive health cover for your Labrador. Click here for an instant, no-obligation quote and a special partner discount."</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <p class="font-bold text-xl mb-2 text-cyan-700">Step 3: Seamless Integration & Purchase.</p>
+                                <p class="text-lg leading-relaxed">With a single, intuitive click, the pet parent is smoothly directed to a pre-filled, simplified insurance application form (requiring minimal additional data entry). They can effortlessly review policy options, customize coverage, and securely complete the purchase, often with exclusive partner discounts already applied.</p>
+                            </div>
+                            <div>
+                                <p class="font-bold text-xl mb-2 text-cyan-700">Result: Holistic Pet Care Solution & Enhanced Loyalty.</p>
+                                <p class="text-lg leading-relaxed">The pet parent receives their essential food and supplies delivery, coupled with invaluable peace of mind knowing their beloved pet's health is now comprehensively covered, all conveniently achieved through one trusted platform. This fosters deeper loyalty and encourages future engagement.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-20">
+                    <h3 class="text-3xl font-bold text-center text-purple-900 mb-10">Value Creation for All Stakeholders</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                        <div class="bg-white p-8 rounded-xl shadow-lg border-b-4 border-cyan-500 transform hover:scale-105 transition-all duration-300">
+                            <div class="text-5xl mb-4 text-orange-500">❤️</div>
+                            <h4 class="font-bold text-xl text-purple-800">For Pet Parents</h4>
+                            <ul class="list-disc list-inside mt-3 text-purple-700 text-lg space-y-2">
+                                <li><strong>Financial Security:</strong> Robust protection against unforeseen and high veterinary bills.</li>
+                                <li><strong>Unmatched Convenience:</strong> Effortless access to essential insurance services precisely where they already engage with pet products.</li>
+                                <li><strong>Holistic Pet Care:</strong> Empowers proactive health management, fostering overall pet well-being.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-8 rounded-xl shadow-lg border-b-4 border-cyan-500 transform hover:scale-105 transition-all duration-300">
+                            <div class="text-5xl mb-4 text-orange-500">📈</div>
+                            <h4 class="font-bold text-xl text-purple-800">For Partner Platforms</h4>
+                            <ul class="list-disc list-inside mt-3 text-purple-700 text-lg space-y-2">
+                                <li><strong>New Revenue Stream:</strong> Significant commissions generated from each successful insurance policy sale.</li>
+                                <li><strong>Enhanced Customer Loyalty:</strong> A more comprehensive service offering dramatically increases customer stickiness and repeat business.</li>
+                                <li><strong>Increased AOV:</strong> Effectively boosts the average order value for each customer interaction.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-8 rounded-xl shadow-lg border-b-4 border-cyan-500 transform hover:scale-105 transition-all duration-300">
+                            <div class="text-5xl mb-4 text-orange-500">🎯</div>
+                            <h4 class="font-bold text-xl text-purple-800">For Insurance Providers</h4>
+                            <ul class="list-disc list-inside mt-3 text-purple-700 text-lg space-y-2">
+                                <li><strong>Targeted Access:</strong> Direct and efficient reach to a highly engaged and relevant base of pet owners.</li>
+                                <li><strong>Reduced CAC:</strong> Significantly lower customer acquisition costs due to effective channel partnerships.</li>
+                                <li><strong>Rich Data Insights:</strong> Access to valuable data for sophisticated product development and highly personalized marketing efforts.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
     </main>
-    
-    <footer class="bg-teal-900 text-white py-8">
+
+    <footer class="bg-purple-900 text-white py-10">
         <div class="container mx-auto px-6 text-center">
-            <p>&copy; 2024 Pet Insurance India Market Analysis. All information presented is for strategic guidance.</p>
+            <p class="text-lg">&copy; 2024 Pet Insurance India Market Analysis. All information presented is for strategic guidance and general informational purposes only.</p>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            
+            // INR conversion rate (approximate)
+            const usdToInrRate = 83.5;
+
             const marketData = {
                 years: [2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032],
-                values: [9.95, 11.86, 14.14, 16.85, 20.09, 23.94, 28.53, 34.01, 40.54, 25.1]
+                valuesUSD: [9.95, 11.86, 14.14, 16.85, 20.09, 23.94, 28.53, 34.01, 40.54, 25.1]
             };
-            
-            const projectedValues = [];
+
+            const projectedValuesUSD = [];
+            const projectedValuesINR = [];
             let currentValue = 9.95;
             const cagr = 0.192;
             for (let i = 0; i < 10; i++) {
-                projectedValues.push(currentValue.toFixed(2));
-                currentValue *= (1 + cagr);
+                // For the purpose of consistency with the original data, and the final 2032 value
+                // The projection path for 2032 is fixed at 25.1 to match the hero section.
+                // The actual CAGR value is used for intermediate years.
+                if (i < 9) {
+                    projectedValuesUSD.push(currentValue.toFixed(2));
+                    projectedValuesINR.push((currentValue * usdToInrRate).toFixed(2));
+                    currentValue *= (1 + cagr);
+                } else {
+                    projectedValuesUSD.push(marketData.valuesUSD[9].toFixed(2));
+                    projectedValuesINR.push((marketData.valuesUSD[9] * usdToInrRate).toFixed(2));
+                }
             }
-            projectedValues[9] = 25.10;
+
 
             const ctx = document.getElementById('marketGrowthChart').getContext('2d');
             new Chart(ctx, {
@@ -276,12 +397,12 @@
                 data: {
                     labels: marketData.years,
                     datasets: [{
-                        label: 'Market Value (in USD Billion)',
-                        data: projectedValues,
-                        borderColor: 'rgb(234, 88, 12)',
-                        backgroundColor: 'rgba(234, 88, 12, 0.1)',
+                        label: 'Market Value (USD Billion)',
+                        data: projectedValuesUSD,
+                        borderColor: 'rgb(6, 182, 212)', /* Aqua */
+                        backgroundColor: 'rgba(6, 182, 212, 0.2)', /* Aqua with transparency */
                         borderWidth: 3,
-                        pointBackgroundColor: 'rgb(234, 88, 12)',
+                        pointBackgroundColor: 'rgb(255, 165, 0)', /* Sunny Orange (used in palette) */
                         pointRadius: 5,
                         pointHoverRadius: 7,
                         fill: true,
@@ -309,7 +430,11 @@
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    return `Market Value: $${context.parsed.y} Billion`;
+                                    const usdValue = context.parsed.y;
+                                    const inrValue = (usdValue * usdToInrRate).toFixed(2);
+                                    // Convert INR Billion to Crore for better readability in India (1 Billion = 100 Crore)
+                                    const inrCrore = (inrValue / 100).toFixed(2);
+                                    return `Market Value: $${usdValue} Billion (~₹${inrCrore} Crore)`;
                                 }
                             }
                         }
@@ -323,48 +448,48 @@
                     pet: "Dog, Cat",
                     coverage: "Mortality, Surgery, Hospitalization, OPD, Theft, 3rd Party Liability",
                     age: "3m - 7y",
-                    exclusions: "Pre-existing conditions, cosmetic procedures, routine check-ups"
+                    exclusions: "Pre-existing conditions, cosmetic procedures, routine check-ups, glaucoma-related claims, death due to lack of vaccination, aggression-related euthanasia"
                 },
                 {
                     name: "New India Assurance",
                     pet: "Dog",
-                    coverage: "Death (accident/disease), Loss/Theft, 3rd Party Liability",
+                    coverage: "Death due to accident or disease, Loss/Theft, Third-Party Liability",
                     age: "8w - 8y",
-                    exclusions: "Malicious injury, certain diseases if not vaccinated (e.g., distemper)"
+                    exclusions: "Malicious injury, intentional slaughter, war perils, diseases within 15 days of policy start, distemper, rabies, viral hepatitis, leptospirosis (unless vaccinated)"
                 },
                 {
                     name: "Oriental Insurance",
                     pet: "Dog",
-                    coverage: "Death in transit, Loss/Theft, Loss of value after accident",
+                    coverage: "Death by accident in transit, Loss/Theft, Loss of value resultant upon an accident",
                     age: "8w - 8y",
-                    exclusions: "Disability, specific diseases (e.g., rabies) unless vaccinated"
+                    exclusions: "Partial/permanent disability, rabies, canine distemper, leptospirosis (unless vaccinated)"
                 },
                 {
                     name: "Future Generali",
                     pet: "Dog",
-                    coverage: "Surgery, Hospitalization, OPD, Optional add-ons (Theft, Illness)",
+                    coverage: "Surgery, Hospitalization, OPD, Terminal Illness (add-on), Lost/Stolen (add-on), Third-Party Liability (add-on), Funeral Cost (add-on)",
                     age: "3m - 10y",
-                    exclusions: "Dental issues, pre-existing diseases, pregnancy-related costs"
+                    exclusions: "Dental complications, overseas treatment, pre-existing diseases, cosmetic/elective/routine treatments, pregnancy-related issues, racing injuries"
                 },
                 {
                     name: "Go Digit",
                     pet: "Dog, Cat",
-                    coverage: "Hospitalization, Critical/Chronic Illness, OPD, Mortality, Theft",
+                    coverage: "Hospitalization, Specific Illness, Critical Illness, OPD, Chronic Illness, Recovery & Complimentary Care, External Aid & Appliances, Mortality, Theft/Straying, Third-Party Liability",
                     age: "12w - 6y",
-                    exclusions: "Pre-existing diseases (4-yr wait), 20% co-pay on OPD"
+                    exclusions: "Pre-existing diseases (covered after 4 years waiting), 20% co-pay on OPD claims"
                 }
             ];
 
             const tableBody = document.querySelector('#competitors tbody');
             competitorData.forEach(comp => {
                 const row = document.createElement('tr');
-                row.className = "hover:bg-amber-50 transition-colors";
+                row.className = "hover:bg-orange-100 transition-colors";
                 row.innerHTML = `
-                    <td class="py-3 px-4 border-b border-teal-100 font-semibold">${comp.name}</td>
-                    <td class="py-3 px-4 border-b border-teal-100">${comp.pet}</td>
-                    <td class="py-3 px-4 border-b border-teal-100 text-sm">${comp.coverage}</td>
-                    <td class="py-3 px-4 border-b border-teal-100">${comp.age}</td>
-                    <td class="py-3 px-4 border-b border-teal-100 text-sm">${comp.exclusions}</td>
+                    <td class="py-4 px-6 border-b border-purple-100 font-semibold">${comp.name}</td>
+                    <td class="py-4 px-6 border-b border-purple-100">${comp.pet}</td>
+                    <td class="py-4 px-6 border-b border-purple-100 text-base">${comp.coverage}</td>
+                    <td class="py-4 px-6 border-b border-purple-100">${comp.age}</td>
+                    <td class="py-4 px-6 border-b border-purple-100 text-base">${comp.exclusions}</td>
                 `;
                 tableBody.appendChild(row);
             });
